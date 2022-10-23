@@ -20,7 +20,6 @@ class LoginApi {
         });
         return Response.ok(
           response,
-          headers: {'content-type': 'application/json'},
         );
       } else {
         return Response.forbidden('Not authorized');

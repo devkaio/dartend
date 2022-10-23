@@ -20,7 +20,6 @@ class NewsApi {
 
       return Response.ok(
         jsonEncode(mapNews),
-        headers: {'content-type': 'application/json'},
       );
     });
 
