@@ -4,6 +4,7 @@ import 'api/login_api.dart';
 import 'api/news_api.dart';
 import 'infra/dartend_server.dart';
 import 'infra/interceptor_middleware.dart';
+import 'infra/security/security_service_imp.dart';
 import 'services/news_service.dart';
 import 'utils/enviroment.dart';
 
@@ -11,7 +12,7 @@ void main() async {
   Enviroment.fromFile('.env');
   //Adiciona handlers em cascata
   final cascadeHandler = Cascade()
-      .add(LoginApi().handler) //
+      .add(LoginApi(SecurityServiceImp()).handler) //
       .add(NewsApi(NewsService()).handler) //
       .handler;
 
