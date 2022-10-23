@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
@@ -14,8 +16,17 @@ class DartendHandler {
       return Response.ok("Ola, mundo!\n");
     });
 
-    router.post('/login', (Request req) {
-      return Response.ok("Autorizado");
+    router.post('/login', (Request req) async {
+      final result = await req.readAsString();
+      final Map json = jsonDecode(result);
+      final user = json['user'];
+      final password = json['password'];
+
+      if (user == 'admin' && password == '123456') {
+        return Response.ok('Bem vindo, $user!');
+      } else {
+        return Response.forbidden('Not authorized');
+      }
     });
 
     return router;
