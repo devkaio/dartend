@@ -3,6 +3,7 @@ import 'package:shelf/shelf.dart';
 import 'api/login_api.dart';
 import 'api/news_api.dart';
 import 'infra/dartend_server.dart';
+import 'infra/interceptor_middleware.dart';
 import 'services/news_service.dart';
 import 'utils/enviroment.dart';
 
@@ -15,8 +16,10 @@ void main() async {
       .handler;
 
   //Adiciona middlewares
-  final handler =
-      Pipeline().addMiddleware(logRequests()).addHandler(cascadeHandler);
+  final handler = Pipeline()
+      .addMiddleware(logRequests()) //
+      .addMiddleware(Interceptor.middleware) //
+      .addHandler(cascadeHandler);
 
   //Initializa servidor
   await DartendServer.init(
