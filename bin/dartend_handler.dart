@@ -23,7 +23,14 @@ class DartendHandler {
       final password = json['password'];
 
       if (user == 'admin' && password == '123456') {
-        return Response.ok('Bem vindo, $user!');
+        final response = jsonEncode({
+          'token': 'token123',
+          'user_id': '1',
+        });
+        return Response.ok(
+          response,
+          headers: {'content-type': 'application/json'},
+        );
       } else {
         return Response.forbidden('Not authorized');
       }
