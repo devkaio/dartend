@@ -14,6 +14,10 @@ class DartendHandler {
       return Response.ok("Ola, mundo!\n");
     });
 
+    router.post('/login', (Request req) {
+      return Response.ok("Autorizado");
+    });
+
     return router;
   }
 }
