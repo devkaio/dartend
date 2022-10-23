@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -7,13 +6,15 @@ import 'package:shelf/shelf_io.dart';
 class DartendServer {
   DartendServer._();
 
-  static FutureOr<void> init(Handler handler) async {
-    final ip = InternetAddress.anyIPv4;
-    final port = int.parse(Platform.environment['PORT'] ?? '8080');
-
+  static FutureOr<void> init({
+    required Handler handler,
+    required String address,
+    required int port,
+  }) async {
     // Inicializa o servidor
-    final server = await serve(handler, ip, port);
+    final server = await serve(handler, address, port);
 
-    print('Servidor iniciado e ouvindo porta ${server.port}');
+    print(
+        'Servidor iniciado no endereço ${server.address} e ouvindo porta ${server.port}');
   }
 }
