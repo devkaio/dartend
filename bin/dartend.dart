@@ -3,21 +3,22 @@ import 'package:shelf/shelf.dart';
 import 'api/login_api.dart';
 import 'api/news_api.dart';
 import 'infra/dartend_server.dart';
+import 'infra/dependency_injector/injects.dart';
 import 'infra/interceptor_middleware.dart';
 import 'infra/security/security_service.dart';
-import 'infra/security/security_service_imp.dart';
-import 'services/news_service.dart';
 import 'utils/enviroment.dart';
 
 void main() async {
   Enviroment.fromFile('.env');
-  final SecurityService securityService = SecurityServiceImp();
+
+  final di = Injects.init();
+
   //Adiciona handlers em cascata
   final cascadeHandler = Cascade()
-      .add(LoginApi(securityService).getHandler()) //
-      .add(NewsApi(NewsService()).getHandler(middlewares: [
-        securityService.authorization,
-        securityService.verifyJWT,
+      .add(di.get<LoginApi>().getHandler()) //
+      .add(di.get<NewsApi>().getHandler(middlewares: [
+        di.get<SecurityService>().authorization,
+        di.get<SecurityService>().verifyJWT,
       ])) //
       .handler;
 
