@@ -3,6 +3,7 @@ import 'package:shelf/shelf.dart';
 import 'api/login_api.dart';
 import 'api/news_api.dart';
 import 'infra/dartend_server.dart';
+import 'infra/database/db_config.dart';
 import 'infra/dependency_injector/injects.dart';
 import 'infra/interceptor_middleware.dart';
 import 'infra/security/security_service.dart';
@@ -12,6 +13,8 @@ void main() async {
   Enviroment.fromFile('.env');
 
   final di = Injects.init();
+
+  await di.get<DBConfig>().connection;
 
   //Adiciona handlers em cascata
   final cascadeHandler = Cascade()
