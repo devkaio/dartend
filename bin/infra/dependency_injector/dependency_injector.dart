@@ -25,7 +25,7 @@ class DependencyInjector {
     }
   }
 
-  call<T extends Object>() => get<T>();
+  T call<T extends Object>() => get<T>();
 }
 
 class _InstanceGenerator<T> {
