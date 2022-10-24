@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `dartend`.`news`(
     `id_user` INT NULL,
     PRIMARY KEY (`id`),
     CONSTRAINT `id_user`
-        FOREIGN KEY (`id_user`),
+        FOREIGN KEY (`id_user`)
         REFERENCES `dartend`.`users`(`id`)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION)
